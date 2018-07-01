@@ -9,16 +9,24 @@ def gen_mac_general():
     return ''.join(l)
 
 
-m = gen_mac_general()
+def gen_mac_linux(mac):
+    # Generate MAC formated for Unix, Linux, and Juniper
+    l = list()
+    [l.append(mac[i:i+2]) for i in range(0, len(mac), 2)]
+    return ':'.join(l).lower()
 
-print(f'MAC: {m}')
 
-# Unix/Linux/Juniper Format
-n = list()
-o = [n.append(m[i:i+2]) for i in range(0, len(m), 2)]
-print(f'MAC (Unix/Linux/Juniper): {":".join(n).lower()}')
+def gen_mac_cisco(mac):
+    # Generate MAC formated for Cisco
+    l = list()
+    [l.append(mac[i:i+4]) for i in range(0, len(mac), 4)]
+    return '.'.join(l).lower()
 
-# Cisco Format
-p = list()
-q = [p.append(m[i:i+4]) for i in range(0, len(m), 4)]
-print(f'MAC (Cisco): {".".join(p).lower()}')
+
+mac = gen_mac_general()
+
+l_mac = gen_mac_linux(mac=mac)
+print(l_mac)
+
+c_mac = gen_mac_cisco(mac=mac)
+print(c_mac)
